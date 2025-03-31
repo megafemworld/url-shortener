@@ -6,13 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -42,7 +41,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'passowrd' => 'hashed',
+        'passsword' => 'hashed',
     ];
 
     /**
@@ -60,7 +59,7 @@ class User extends Authenticatable implements JWTSubject
      * 
      * @return array 
      */
-    public function getJWTCustomClaim()
+    public function getJWTCustomClaims()
     {
         return [];
     }
@@ -70,6 +69,6 @@ class User extends Authenticatable implements JWTSubject
      */
     public function shortendUrls()
     {
-        return $this->hasMany(shortendUrl::class);
+        return $this->hasMany(shortenedUrl::class);
     }
 }
